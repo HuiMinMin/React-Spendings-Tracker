@@ -1,22 +1,24 @@
-import React, { useState, useRef } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
+import React, { useState } from 'react';
+import { Checkbox, ListItemSecondaryAction, IconButton, TextField } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import TextField from '@material-ui/core/TextField';
+import { updateTodoItem, deleteTodoItem } from "../../../adapters/checklistAdapter/checklistItem";
 
-export default function TodoItem({ todoItem, toggleTodo, updateTodo, deleteTodo}) {
+export default function TodoItem({ todoItem, todoList, setTodoList}) {
+    
+    const [input, setInput]= useState();
+    const [editMode, setEditMode]= useState(false);
+
     let styles = { 
         textDecoration: todoItem.complete ? 'line-through': 'none'
     }
 
-    const [input, setInput]= useState();
-
-    const [editMode, setEditMode]= useState(false);
-
-    function handleTodoClick() {
-        toggleTodo(todoItem.id)
+    function handleOnUpdate() {
+        const newTodos = [...todoList]
+        const todo = newTodos.find(todo => todo.id === todoItem.id)
+        todo.complete = !todo.complete
+        updateTodoItem(todo)
+        setTodoList(newTodos)
     }
 
     function handleOnEdit() {
@@ -24,18 +26,20 @@ export default function TodoItem({ todoItem, toggleTodo, updateTodo, deleteTodo}
         setEditMode(true);
     }
 
-    function handleInputBlur(e) {
+    function handleOnInputBlur(e) {
         setEditMode(false);
         const description = e.target.value;
         console.log('description', description)
         if (description === '') return
         let updatedItem = todoItem;
         updatedItem.description = description;
-        updateTodo(updatedItem);
+        updateTodoItem(updatedItem);
     }
 
-    function handleDelete(){
-        deleteTodo(todoItem);
+    function handleOnDelete(){
+        const newTodos = todoList.filter(todo => todo.id !== todoItem.id)
+        setTodoList(newTodos)
+        deleteTodoItem(todoItem)
     }
     
     return (
@@ -45,7 +49,7 @@ export default function TodoItem({ todoItem, toggleTodo, updateTodo, deleteTodo}
                 checked={todoItem.complete}
                 tabIndex={-1}
                 disableRipple
-                onChange={handleTodoClick}
+                onChange={handleOnUpdate}
             />
             {
                 !editMode ? todoItem.description: 
@@ -54,13 +58,13 @@ export default function TodoItem({ todoItem, toggleTodo, updateTodo, deleteTodo}
                     value={input}
                     variant="outlined" 
                     onChange={e => setInput(e.target.value)}
-                    onBlur={(e) => handleInputBlur(e)}/>
+                    onBlur={(e) => handleOnInputBlur(e)}/>
             }
             <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="edit" onClick={handleOnEdit}>
                     <CreateIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
+                <IconButton edge="end" aria-label="delete" onClick={handleOnDelete}>
                     <DeleteIcon />
                 </IconButton>
             </ListItemSecondaryAction>
