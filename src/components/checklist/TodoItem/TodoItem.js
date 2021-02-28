@@ -1,74 +1,48 @@
-import React, { useState } from 'react';
-import { Checkbox, ListItemSecondaryAction, IconButton, TextField } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
+import { useState, useContext } from 'react';
 import { updateTodoItem, deleteTodoItem } from "../../../adapters/checklistAdapter/checklistItem";
+import TodoItemContext from "../../../contexts/TodoItemContext/TodoItemContext";
 
-export default function TodoItem({ todoItem, todoList, setTodoList}) {
-    
+export let todoItemShared = {
+    editMode: {},
+    input:{},
+    setInput:{}
+  }
+
+export default function TodoItem(){
     const [input, setInput]= useState();
     const [editMode, setEditMode]= useState(false);
-
-    let styles = { 
-        textDecoration: todoItem.complete ? 'line-through': 'none'
-    }
+    const [todoList, setTodoList, todoItem]= useContext(TodoItemContext.checklistContext);
+    todoItemShared.setInput= setInput();
 
     function handleOnUpdate() {
-        const newTodos = [...todoList]
-        const todo = newTodos.find(todo => todo.id === todoItem.id)
-        todo.complete = !todo.complete
-        updateTodoItem(todo)
-        setTodoList(newTodos)
+        const newTodos = [...todoList];
+        const todo = newTodos.find(todo => todo.id === todoItem.id);
+        todo.complete = !todo.complete;
+        updateTodoItem(todo);
+        setTodoList(newTodos);
     }
-
+    
     function handleOnEdit() {
         setInput(todoItem.description);
+        todoItemShared.input= input;
         setEditMode(true);
+        todoItemShared.editMode = editMode;
     }
-
+    
     function handleOnInputBlur(e) {
         setEditMode(false);
+        todoItemShared.editMode = editMode;
         const description = e.target.value;
-        console.log('description', description)
-        if (description === '') return
+        if (description === '') return;
         let updatedItem = todoItem;
         updatedItem.description = description;
         updateTodoItem(updatedItem);
     }
-
+    
     function handleOnDelete(){
-        const newTodos = todoList.filter(todo => todo.id !== todoItem.id)
-        setTodoList(newTodos)
-        deleteTodoItem(todoItem)
+        const newTodos = todoList.filter(todo => todo.id !== todoItem.id);
+        setTodoList(newTodos);
+        deleteTodoItem(todoItem);
     }
-    
-    return (
-        <div key={todoItem.id} style={styles}>
-            <Checkbox
-                edge="start"
-                checked={todoItem.complete}
-                tabIndex={-1}
-                disableRipple
-                onChange={handleOnUpdate}
-            />
-            {
-                !editMode ? todoItem.description: 
-                <TextField 
-                    id="outlined-basic" 
-                    value={input}
-                    variant="outlined" 
-                    onChange={e => setInput(e.target.value)}
-                    onBlur={(e) => handleOnInputBlur(e)}/>
-            }
-            <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="edit" onClick={handleOnEdit}>
-                    <CreateIcon />
-                </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick={handleOnDelete}>
-                    <DeleteIcon />
-                </IconButton>
-            </ListItemSecondaryAction>
-        </div>
-    )
 }
-    
+

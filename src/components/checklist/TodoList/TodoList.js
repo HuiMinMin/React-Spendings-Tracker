@@ -1,15 +1,20 @@
 import React from 'react';
-import TodoItem from '../TodoItem/TodoItem';
+import TodoItemUI from '../TodoItem/TodoItemUI';
 import ListItem from '@material-ui/core/ListItem';
 
-export default function TodoList({todoList, setTodoList}) {
+export let todoListShared = {
+    todoItem: {}
+}
+
+export default function TodoList({todoList}) {
 
     return (
         todoList.map((todo) => {
+            todoListShared.todoItem = todo;
             return (
             <ListItem>
-                <TodoItem key={todo.id} todoItem={todo} todoList={todoList} setTodoList={setTodoList}></TodoItem>
+                <TodoItemUI key={todo.id}></TodoItemUI>
             </ListItem>
-        )})
+            );})
     )
 }
