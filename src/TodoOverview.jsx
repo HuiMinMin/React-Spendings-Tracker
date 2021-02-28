@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-
+import React, {useState, useEffect, useContext} from 'react'
+import { ThemeContext } from './components/checklist/App.js'
 import TextField from '@material-ui/core/TextField';
 
 const TodoOverview = (props) => {
@@ -7,40 +7,17 @@ const TodoOverview = (props) => {
     const [load, setLoading] = useState(false)
     const [count, setCount] = useState(0)
 
-    const [input, setInput] = useState('Default String Here')
-
-    // useEffect(() => {
-    //     setLoading(true)
-    //     setCount(0)
-    //     setLoading(false)
-    // }, [])
-
-    useEffect(()=>{
-        console.log(111)
-        setCount(prevCount => prevCount+1)
-    }, [todo])
-
+    const {theme, setTheme} = useContext(ThemeContext);
+    console.log(theme)
     return (
         <>
             <div style={{display: 'flex'}}>
-                <h4>Total Tasks</h4>
+                <h4>{theme}</h4>
                 <p>{data.total}</p>
             </div>
             <div style={{display: 'flex'}}>
-                <h4>Left Tasks</h4>
-                <p>{data.left}</p>
+                <button style={{height: '2em', width: '2em'}} onClick={()=>{setTheme('dark')}} />
             </div>
-            <div style={{height: '10vh', width: '95vw'}}>
-                <TextField 
-                    id="outlined-basic" 
-                    label={'This is a random input example'}
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    variant="outlined"
-                    />
-            </div>
-            
-            <h1>deleted - {load ? 'loading...' : count}</h1>
         </>
     )
 }

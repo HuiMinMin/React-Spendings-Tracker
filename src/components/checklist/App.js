@@ -4,9 +4,13 @@ import TodoOverview from '../../TodoOverview'
 import { v4 as uuidv4 } from 'uuid';
 import { getTodoItems, postTodoItem } from "../../adapters/checklistAdapter/checklistAdapter";
 
+export const ThemeContext = React.createContext();
+
 function App() {
   const [todos, setTodos] = useState([]);
   const todoNameRef = useRef();
+
+  const [theme, setTheme] = useState('light')
 
   useEffect(() => {
     getTodoItems()
@@ -31,7 +35,9 @@ function App() {
 
   return (
     <>
-      {/* <TodoOverview data={'hello'} todo={todos} /> */}
+      <ThemeContext.Provider value={{theme: theme, setTheme: setTheme}}>
+        <TodoOverview data={'hello'} todo={todos} />
+      </ThemeContext.Provider>
       <TodoList todoList={todos} setTodoList={setTodos}/>
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add Todo</button>
