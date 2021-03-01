@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import TodoPageController from './components/checklist/TodoPage/TodoPageController';
+import AppUI from './components/App/AppUI';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TodoPageController />
+    <AppUI />
   </React.StrictMode>,
   document.getElementById('root')
 );

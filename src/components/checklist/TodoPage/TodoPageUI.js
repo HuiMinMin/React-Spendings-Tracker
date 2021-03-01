@@ -24,7 +24,7 @@ function TodoPageUI(props) {
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodoUI}>Add Todo</button>
       <button onClick={handleClearTodo}>Clear completed Todos</button>
-      <div>{todos.filter(todo=> !todo.complete).length} left to do</div>
+      {/* <div>{todos.filter(todo=> !todo.complete).length} left to do</div> */}
     </>
   );
 }
