@@ -6,11 +6,11 @@ import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageConte
 export default function TodoList({ setTodoList}) {
     const { todoPageStates, setTodoPageStates } = useContext(TodoPageContext);
 
-    useEffect(() => {
-        setTodoPageStates({
-          todoList: todoList
-        })
-      },[todoPageStates])
+    // useEffect(() => {
+    //     setTodoPageStates({
+    //       todoList: todoList
+    //     })
+    //   },[todoPageStates])
     
     const { todoList } = todoPageStates;
     console.log('todolist in todo list', todoList)

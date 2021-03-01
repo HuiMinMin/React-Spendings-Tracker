@@ -21,7 +21,7 @@ function TodoPageController() {
     setTodoPageStates({
       todoList: todos
     })
-  },[todoPageStates])
+  },[todos])
 
   function handleAddTodo(name) { 
     if (name === '') return
