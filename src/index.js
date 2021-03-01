@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/checklist/App';
+import TodoPageController from './components/checklist/TodoPage/TodoPageController';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TodoPageController />
   </React.StrictMode>,
   document.getElementById('root')
 );

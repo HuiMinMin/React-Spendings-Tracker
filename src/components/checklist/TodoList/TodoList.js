@@ -1,6 +1,6 @@
 import React from 'react';
-import TodoItem from '../TodoItem/TodoItem';
 import ListItem from '@material-ui/core/ListItem';
+import TodoItemController from '../TodoItem/TodoItemController';
 
 export default function TodoList({todoList, setTodoList}) {
 
@@ -8,7 +8,7 @@ export default function TodoList({todoList, setTodoList}) {
         todoList.map((todo) => {
             return (
             <ListItem>
-                <TodoItem key={todo.id} todoItem={todo} todoList={todoList} setTodoList={setTodoList}></TodoItem>
+                <TodoItemController key={todo.id} todoItem={todo} todoList={todoList} setTodoList={setTodoList}></TodoItemController>
             </ListItem>
         )})
     )
