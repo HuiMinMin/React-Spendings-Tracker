@@ -5,7 +5,7 @@ import TodoPageUI from './TodoPageUI';
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 
 function TodoPageController() {
-  const [todos, setTodos] = useState([]);
+  const [todoList, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { todoPageStates, setTodoPageStates } = useContext(TodoPageContext);
 
@@ -19,9 +19,9 @@ function TodoPageController() {
 
   useEffect(() => {
     setTodoPageStates({
-      todoList: todos
+      todoList: todoList
     })
-  },[todos])
+  },[todoList])
 
   function handleAddTodo(name) { 
     if (name === '') return
@@ -33,7 +33,7 @@ function TodoPageController() {
   }
 
   function handleClearTodo(){
-    const newTodos = todos.filter(todo => !todo.complete)
+    const newTodos = todoList.filter(todo => !todo.complete)
     setTodos(newTodos)
   }
 

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { updateTodoItem, deleteTodoItem } from "../../../adapters/checklistAdapter/checklistItem";
 import TodoItemUI from "./TodoItemUI";
+import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 
-export default function TodoItemController({ todoItem, todoList, setTodoList}) {
+export default function TodoItemController({ todoItem, setTodoList}) {
+    const { todoPageStates, setTodoPageStates } = useContext(TodoPageContext);
+    const { todoList } = todoPageStates;
     
     function handleOnUpdate() {
         const newTodos = [...todoList]
