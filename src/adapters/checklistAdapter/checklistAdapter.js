@@ -1,9 +1,13 @@
-import { get, post } from "../xhr/xhr";
+import { get, post, del } from "../xhr/xhr";
 
 export function getTodoItems() {
-    return get("/getTodoItems")//get some url
+    return get("/todoList")//get some url
 }
 
 export function postTodoItem(itemToPost) {
-    return post("/postTodoItem", itemToPost)//get some url
+    return post("/todoItem", itemToPost)//get some url
+}
+
+export function deleteAllCompletedItem(itemToDelete) {
+    return del( "/todoItem" , itemToDelete)//get some url
 }

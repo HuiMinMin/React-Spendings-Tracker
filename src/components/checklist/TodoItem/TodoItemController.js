@@ -4,7 +4,7 @@ import TodoItemUI from "./TodoItemUI";
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 
 export default function TodoItemController({ todoItem, setTodoList}) {
-    const { todoPageStates, setTodoPageStates } = useContext(TodoPageContext);
+    const { todoPageStates } = useContext(TodoPageContext);
     const { todoList } = todoPageStates;
     
     function handleOnUpdate() {

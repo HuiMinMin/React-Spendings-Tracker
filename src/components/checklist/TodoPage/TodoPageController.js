@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { getTodoItems, postTodoItem } from "../../../adapters/checklistAdapter/checklistAdapter";
+import { getTodoItems, postTodoItem, deleteAllCompletedItem } from "../../../adapters/checklistAdapter/checklistAdapter";
 import TodoPageUI from './TodoPageUI';
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 
 function TodoPageController() {
   const [todoList, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { todoPageStates, setTodoPageStates } = useContext(TodoPageContext);
+  const { setTodoPageStates } = useContext(TodoPageContext);
 
   useEffect(() => {
     getTodoItems()
@@ -24,7 +24,6 @@ function TodoPageController() {
   },[todoList])
 
   function handleAddTodo(name) { 
-    if (name === '') return
     const newTodoItem = {id: uuidv4(), description: name, complete: false}
     setTodos(prevTodos => {
       return [...prevTodos, newTodoItem]
@@ -33,8 +32,10 @@ function TodoPageController() {
   }
 
   function handleClearTodo(){
-    const newTodos = todoList.filter(todo => !todo.complete)
-    setTodos(newTodos)
+    const newTodos = todoList.filter(todo => !todo.complete);
+    setTodos(newTodos);
+    const toDelete = todoList.filter(todo => todo.complete);
+    deleteAllCompletedItem(toDelete);
   }
 
   if (loading){
