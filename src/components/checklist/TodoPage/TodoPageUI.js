@@ -1,5 +1,5 @@
 import React, { useState, useContext, useStyles } from 'react';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { ListItemSecondaryAction, IconButton, TextField } from '@material-ui/core'
 import ListItem from '@material-ui/core/ListItem';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,6 +16,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 import TodoList from '../TodoList/TodoList';
+
+import '../../../styles/TodoStyle/TodoPage.css';
 
 export const ThemeContext = React.createContext();
 
@@ -45,59 +47,25 @@ function TodoPageUI(props) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-    cardRoot: {
-      minWidth: 150,
-      width: '10vw',
-      margin: '0.5em'
-    },
-    cardTitle: {
-      fontSize: 14,
-    },
-    todoList: {
-      flexGrow: 1
-    },
-    cardContent: {
-      flex: 1
-    },
-    cardDiv: {
-      display: 'flex'
-    },
-    page: {
-      height: '100vh',
-      width: '100 vw',
-      margin: '0px !important'
-    }
-  }));
-
-  const classes = useStyles();
-
   function handleAddTodoUI() { 
     if (input === undefined ) return
     handleAddTodo(input)
     setInput('')
   }
 
+  const cardRootClass = "minCardWidth cardWidth cardMargin"
+
   return (
     <>
       <ThemeProvider theme={state.checkedA ? darkTheme:lightTheme}>
-        <Card className={classes.page}>
-          <div className={classes.root}>
+        <Card className="maxPageSize">
+          <div className="flexGrow">
             <AppBar position="static">
               <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <IconButton edge="start" className="menuButton" color="inherit" aria-label="menu">
                   <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
+                <Typography variant="h6" className="flexGrow">
                   To do
                 </Typography>
                 <Switch
@@ -106,15 +74,15 @@ function TodoPageUI(props) {
                   onChange={handleChange}
                   name="checkedA"
                   color="secondary"
-                  inputProps={{ 'aria-label': 'style toggle' }}
+                  inputProps={{ 'aria-label': 'theme toggle' }}
                 />
               </Toolbar>
             </AppBar>
           </div>
-          <div className={classes.cardDiv}>
-            <Card className={classes.cardRoot}>
-              <CardContent className={classes.cardContent}>
-                <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
+          <div className="displayFlex">
+            <Card className={cardRootClass}>
+              <CardContent className="flexOne">
+                <Typography className="genericFontSize" color="textSecondary" gutterBottom>
                   Tasks to complete
                 </Typography>
                 <Typography variant="h5" component="h2">
@@ -122,9 +90,9 @@ function TodoPageUI(props) {
                 </Typography>
               </CardContent>
             </Card>
-            <Card className={classes.cardRoot}>
-              <CardContent className={classes.cardContent}>
-                <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
+            <Card className={cardRootClass}>
+              <CardContent className="flexOne">
+                <Typography className="genericFontSize" color="textSecondary" gutterBottom>
                   Completed tasks
                 </Typography>
                 <Typography variant="h5" component="h2">

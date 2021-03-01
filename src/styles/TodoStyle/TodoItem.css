@@ -1,0 +1,19 @@
+.flexDisplay {
+    display: flex;
+}
+
+.strikeThrough {
+    text-decoration: line-through;
+}
+
+.topPadding {
+    padding-top: 0.8em;
+}
+
+.widthVW {
+    width: 60vw;
+}
+
+.genericFontSize {
+    font-size: 14;
+}

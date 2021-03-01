@@ -3,16 +3,15 @@ import { Checkbox, ListItemSecondaryAction, IconButton, TextField } from '@mater
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import Typography from '@material-ui/core/Typography';
+import '../../../styles/TodoStyle/TodoItem.css';
 
 export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur, handleOnDelete}) {
     
+    const rowClass = todoItem.complete ? "flexDisplay strikeThrough":"flexDisplay";
+    const descriptionClass = "topPadding widthVW";
+
     const [input, setInput]= useState();
     const [editMode, setEditMode]= useState(false);
-
-    let styles = { 
-        textDecoration: todoItem.complete ? 'line-through': 'none',
-        display: 'flex'
-    }
 
     function handleOnEditUI() {
         setInput(todoItem.description);
@@ -25,7 +24,7 @@ export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur
     }
 
     return (
-        <div key={todoItem.id} style={styles}>
+        <div key={todoItem.id} className={rowClass}>
             <Checkbox
                 edge="start"
                 checked={todoItem.complete}
@@ -33,10 +32,10 @@ export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur
                 disableRipple
                 onChange={handleOnUpdate}
             />
-            <div style={{paddingTop: '0.8em', width: '60vw'}}>
+            <div className={descriptionClass}>
                 {
                     !editMode ? 
-                    <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
+                    <Typography className={"genericFontSize"} color="textSecondary" gutterBottom>
                         {todoItem.description}
                     </Typography> : 
                     <TextField 
