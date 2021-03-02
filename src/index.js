@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import AppUI from './components/App/AppUI';
 import reportWebVitals from './reportWebVitals';

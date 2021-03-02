@@ -21,7 +21,7 @@ function TodoPageController() {
     setTodoPageStates({
       todoList: todoList
     })
-  },[todoList])
+  },[todoList, setTodoPageStates])
 
   function handleAddTodo(name) { 
     const newTodoItem = {id: uuidv4(), description: name, complete: false}
@@ -44,7 +44,10 @@ function TodoPageController() {
     )
   } else{
     return (
-      <TodoPageUI handleAddTodo={handleAddTodo} handleClearTodo={handleClearTodo} setTodos={setTodos}></TodoPageUI>
+      <TodoPageUI 
+        handleAddTodo={handleAddTodo} 
+        handleClearTodo={handleClearTodo} 
+        setTodos={setTodos} />
     );
   }
 }

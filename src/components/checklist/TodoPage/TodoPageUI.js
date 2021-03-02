@@ -1,35 +1,29 @@
-import React, { useState, useContext, useStyles } from 'react';
+import React, { useState, useContext } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ListItemSecondaryAction, IconButton, TextField } from '@material-ui/core'
+import { ListItemSecondaryAction } from '@material-ui/core'
 import ListItem from '@material-ui/core/ListItem';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
 
 import { ThemeProvider } from '@material-ui/styles';
 
-import DeleteIcon from '@material-ui/icons/Delete';
-import MenuIcon from '@material-ui/icons/Menu';
+import DeleteButton from '../../shared/DeleteButton';
+import InputTextbox  from '../../shared/InputTextbox';
+import Navbar from '../../shared/Navbar';
+import OverviewCard from '../../shared/OverviewCard';
 
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
 import TodoList from '../TodoList/TodoList';
 
-import '../../../styles/TodoStyle/TodoPage.css';
+import '../../../styles/globalStyle.css';
+// import { dark } from '@material-ui/core/styles/createPalette';
 
 export const ThemeContext = React.createContext();
 
 function TodoPageUI(props) {
-  const {handleAddTodo, handleClearTodo, setTodos} = props;
+  const { handleAddTodo, handleClearTodo, setTodos } = props;
   const { todoPageStates } = useContext(TodoPageContext);
   const { todoList } = todoPageStates;
-  const [ input, setInput ]= useState();
-
-  const [state, setState] = React.useState({
-    checkedA: true
-  });
+  const [themeCheckbox, setThemeCheckbox] = useState(true);
 
   const darkTheme = createMuiTheme({
     palette: {
@@ -43,79 +37,35 @@ function TodoPageUI(props) {
     },
   });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  function handleAddTodoUI() { 
-    if (input === undefined ) return
-    handleAddTodo(input)
-    setInput('')
+  function handleAddTodoUI(e) { 
+    handleAddTodo(e.target.value);
   }
-
-  const cardRootClass = "minCardWidth cardWidth cardMargin"
 
   return (
     <>
-      <ThemeProvider theme={state.checkedA ? darkTheme:lightTheme}>
+      <ThemeProvider theme={themeCheckbox ? lightTheme: darkTheme}>
         <Card className="maxPageSize">
-          <div className="flexGrow">
-            <AppBar position="static">
-              <Toolbar>
-                <IconButton edge="start" className="menuButton" color="inherit" aria-label="menu">
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" className="flexGrow">
-                  To do
-                </Typography>
-                <Switch
-                  edge="end"
-                  checked={state.checkedA}
-                  onChange={handleChange}
-                  name="checkedA"
-                  color="secondary"
-                  inputProps={{ 'aria-label': 'theme toggle' }}
-                />
-              </Toolbar>
-            </AppBar>
-          </div>
+          <Navbar 
+            NavbarTitle="To do" 
+            ToggleButton={setThemeCheckbox}/>
           <div className="displayFlex">
-            <Card className={cardRootClass}>
-              <CardContent className="flexOne">
-                <Typography className="genericFontSize" color="textSecondary" gutterBottom>
-                  Tasks to complete
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  {todoList.filter(todo=> !todo.complete).length}
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card className={cardRootClass}>
-              <CardContent className="flexOne">
-                <Typography className="genericFontSize" color="textSecondary" gutterBottom>
-                  Completed tasks
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  {todoList.filter(todo=> todo.complete).length}
-                </Typography>
-              </CardContent>
-            </Card>
+            <OverviewCard 
+              title="Tasks to complete" 
+              number={todoList.filter(todo=> !todo.complete).length}/>
+            <OverviewCard 
+              title="Completed tasks" 
+              number={todoList.filter(todo=> todo.complete).length}/>
           </div>
           <ListItem ContainerComponent="div">
-            <TextField 
-                fullWidth={true}
-                id="outlined-basic" 
-                value={input}
-                variant="outlined" 
-                onChange={e => setInput(e.target.value)}
-                onBlur={() => handleAddTodoUI()}/>
+            <InputTextbox 
+              inputDisplay=""
+              inputBlurFunc={handleAddTodoUI}
+              fullWidth={true} />
             <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="Delete all completed tasks" onClick={handleClearTodo}>
-                    <DeleteIcon />
-                </IconButton>
+              <DeleteButton delFunc={handleClearTodo}/>
             </ListItemSecondaryAction>
           </ListItem>
-              <TodoList todoList={todoList} setTodoList={setTodos}/>
+            <TodoList todoList={todoList} setTodoList={setTodos}/>
         </Card>
       </ThemeProvider>
     </>

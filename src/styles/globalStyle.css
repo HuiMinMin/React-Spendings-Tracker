@@ -1,3 +1,52 @@
 body {
     margin: 0px !important;
 }
+
+.strikeThrough {
+    text-decoration: line-through;
+}
+
+.topPadding {
+    padding-top: 0.8em;
+}
+
+.widthVW {
+    width: 60vw;
+}
+
+.genericFontSize {
+    font-size: 14;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flexGrow {
+    flex-grow: 1;
+}
+
+.flexOne {
+    flex: 1;
+}
+
+.minCardWidth {
+    min-width: 150px;
+}
+
+.cardWidth {
+    width: 10vw;
+}
+
+.cardMargin {
+    margin: 0.5em;
+}
+
+.maxPageSize {
+    height: 100vh;
+    width: 100 vw;
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch;
+    margin: 0px !important;
+}
+

@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Checkbox, ListItemSecondaryAction, IconButton, TextField } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
+import { Checkbox, ListItemSecondaryAction } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import '../../../styles/TodoStyle/TodoItem.css';
+import EditButton from '../../shared/EditButton';
+import DeleteButton from '../../shared/DeleteButton';
+import InputTextbox  from '../../shared/InputTextbox';
+import '../../../styles/globalStyle.css';
 
 export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur, handleOnDelete}) {
     
-    const rowClass = todoItem.complete ? "flexDisplay strikeThrough":"flexDisplay";
+    const rowClass = todoItem.complete ? "displayFlex strikeThrough":"displayFlex";
     const descriptionClass = "topPadding widthVW";
 
-    const [input, setInput]= useState();
     const [editMode, setEditMode]= useState(false);
 
     function handleOnEditUI() {
-        setInput(todoItem.description);
         setEditMode(true);
     }
 
@@ -38,21 +37,14 @@ export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur
                     <Typography className={"genericFontSize"} color="textSecondary" gutterBottom>
                         {todoItem.description}
                     </Typography> : 
-                    <TextField 
-                        id="outlined-basic" 
-                        value={input}
-                        variant="outlined" 
-                        onChange={e => setInput(e.target.value)}
-                        onBlur={(e) => handleOnInputBlurUI(e)}/>
+                    <InputTextbox 
+                        inputDisplay={todoItem.description} 
+                        inputBlurFunc={handleOnInputBlurUI} />
                 }
             </div>
             <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="edit" onClick={handleOnEditUI}>
-                    <CreateIcon />
-                </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick={handleOnDelete}>
-                    <DeleteIcon />
-                </IconButton>
+                <EditButton editFunc={handleOnEditUI}/>
+                <DeleteButton delFunc={handleOnDelete}/>
             </ListItemSecondaryAction>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import TodoItemController from '../TodoItem/TodoItemController';
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
