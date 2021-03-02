@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import '../../styles/globalStyle.css';
 
-export default function OverviewCard({title, number}) {
+export default function OverviewCard({title, number, onClick}) {
     const cardRootClass = "minCardWidth cardWidth cardMargin";
     
     return (

@@ -13,6 +13,7 @@ function TodoPageController() {
     getTodoItems()
     .then(response => { 
       setTodos(response.data);
+      console.log(todoList);
       setLoading(false);
     })
   },[])

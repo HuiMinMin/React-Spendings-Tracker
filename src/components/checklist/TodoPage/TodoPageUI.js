@@ -15,7 +15,6 @@ import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageConte
 import TodoList from '../TodoList/TodoList';
 
 import '../../../styles/globalStyle.css';
-// import { dark } from '@material-ui/core/styles/createPalette';
 
 export const ThemeContext = React.createContext();
 
