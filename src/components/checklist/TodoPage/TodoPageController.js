@@ -3,6 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { getTodoItems, postTodoItem, deleteAllCompletedItem } from "../../../adapters/checklistAdapter/checklistAdapter";
 import TodoPageUI from './TodoPageUI';
 import { TodoPageContext } from "../../../contexts/TodoPageContext/TodoPageContext";
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import '../../../styles/globalStyle.css';
 
 function TodoPageController() {
   const [todoList, setTodos] = useState([]);
@@ -41,7 +45,17 @@ function TodoPageController() {
 
   if (loading){
     return (
-      <h1> Loading... </h1>
+        <Card className="maxPageSize">
+          <div className="loadingDiv">
+            <div className="centralise">
+              <CircularProgress/>
+            </div>
+            <Typography className={"titleFontSize"}
+              color="textPrimary" gutterBottom>
+                Loading
+            </Typography>
+          </div>
+        </Card>
     )
   } else{
     return (

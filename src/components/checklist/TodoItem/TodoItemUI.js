@@ -34,7 +34,7 @@ export default function TodoItemUI({ todoItem, handleOnUpdate, handleOnInputBlur
             <div className={descriptionClass}>
                 {
                     !editMode ? 
-                    <Typography className={"genericFontSize"} color="textSecondary" gutterBottom>
+                    <Typography className={"genericFontSize"} color="textPrimary" gutterBottom>
                         {todoItem.description}
                     </Typography> : 
                     <InputTextbox 
